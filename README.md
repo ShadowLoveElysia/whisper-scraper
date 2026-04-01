@@ -30,7 +30,6 @@
 - 自动展开折叠目录
 - 手动模式备用方案
 - Cookie 登录支持
-- Sakura LLM 翻译（日→中）
 - 三语界面（中/英/日）
 
 **使用：**
@@ -39,11 +38,14 @@ python novel_scraper.py
 ```
 
 ### 2. CopyManga_scraper.py - CopyManga漫画采集器
-**目标网站：** [CopyManga](https://copymanga.com/)
+**目标网站：** [CopyManga](https://www.2026copy.com/)
 
 **功能：**
 - 拟人化鼠标移动
 - 图片防盗链破解
+- 自动展开折叠目录
+- 手动模式备用方案
+- Cookie 登录支持
 - 断点续传
 - 自动重试机制
 - 三语界面（中/英/日）
@@ -76,21 +78,12 @@ playwright install chromium
 
 ---
 
-## 模板脚本
-
-提供两个通用模板方便开发新爬虫：
-
-- `base_scraper_template.py` - 文本内容爬虫模板
-- `base_image_scraper_template.py` - 图片内容爬虫模板
-
----
-
 ## 支持的网站
 
 | 网站 | 类型 | 状态 | 脚本文件 |
 |------|------|------|----------|
-| [Kakuyomu](https://kakuyomu.jp/) | 小说 | ✅ | `novel_scraper.py` |
-| [CopyManga](https://copymanga.com/) | 漫画 | ✅ | `comic_scraper.py` |
+| [Kakuyomu](https://kakuyomu.jp/) | 小说 | ✅ | `Kakuyomu_scraper.py` |
+| [CopyManga](https://www.2026copy.com/) | 漫画 | ✅ | `CopyManga_scraper.py` |
 | 哔哩哔哩漫画 | 漫画 | ❌ | 计划中 |
 | 腾讯动漫 | 漫画 | ❌ | 计划中 |
 | 快看漫画 | 漫画 | ❌ | 计划中 |
