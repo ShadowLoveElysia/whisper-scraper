@@ -23,7 +23,7 @@
 
 ## 当前可用脚本
 
-### 1. novel_scraper.py - 小说采集器
+### 1. Kakuyomu_scraper.py - Kakuyomu小说采集器
 **目标网站：** [Kakuyomu](https://kakuyomu.jp/)
 
 **功能：**
@@ -38,7 +38,7 @@
 python novel_scraper.py
 ```
 
-### 2. comic_scraper.py - 漫画采集器
+### 2. CopyManga_scraper.py - CopyManga漫画采集器
 **目标网站：** [CopyManga](https://copymanga.com/)
 
 **功能：**
