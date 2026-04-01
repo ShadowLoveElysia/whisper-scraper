@@ -120,3 +120,31 @@ playwright install chromium
 ---
 
 本项目仅供学习交流使用，请尊重内容创作者的版权，支持正版。
+
+---
+
+## 相关工具
+
+下载完成后，你可能需要：
+
+**📚 合并和转换电子书**
+[Bulk-Ebook-Merger-Converter](https://github.com/ShadowLoveElysia/Bulk-Ebook-Merger-Converter)
+将下载的章节合并为完整电子书，支持多种格式转换（EPUB、MOBI、PDF 等）
+
+**🌐 翻译外文小说**
+[AiNiee-Next](https://github.com/ShadowLoveElysia/AiNiee-Next)
+使用 AI 翻译下载的外文小说，支持多种翻译引擎
+
+---
+
+## 需要支持新网站？
+
+如果你需要爬取特定网站，欢迎提交 Issue：
+
+1. 提供目标网站 URL
+2. 提供测试账号（如需登录）
+3. 发送邮件至：**ShadowVap@outlook.com**
+4. 邮件标题：`[爬虫] Issue #编号 - 网站名称`
+5. 邮件内容：复述需求和提供测试信息
+
+**注意：** 仅支持个人学习研究用途的网站。
