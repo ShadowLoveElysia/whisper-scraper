@@ -99,18 +99,6 @@ playwright install chromium
 
 ---
 
-## 安全提示
-
-**不要上传敏感信息：**
-- Cookies 文件
-- 账号密码
-- API Token
-- 配置文件
-
-本项目已配置 `.gitignore` 保护这些文件。
-
----
-
 ## 核心技术
 
 - **Playwright** - 无头浏览器自动化
