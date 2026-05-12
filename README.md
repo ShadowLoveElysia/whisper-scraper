@@ -55,8 +55,6 @@ python novel_scraper.py
 python comic_scraper.py
 ```
 
----
-
 ## 快速开始
 
 ### 安装依赖
@@ -75,8 +73,6 @@ playwright install chromium
 3. 配置下载参数
 4. 首次使用会启动登录向导（如需要）
 5. 等待下载完成
-
----
 
 ## 支持的网站
 
@@ -129,3 +125,131 @@ playwright install chromium
 5. 邮件内容：复述需求和提供测试信息
 
 **注意：** 仅支持个人学习研究用途的网站。
+
+---
+
+## KFID_Scraper.py - 绯月论坛抽奖用户名采集器
+
+`KFID_Scraper.py` 用于采集绯月 ScarletMoon/phpwind 风格帖子里的回复用户名，适合抽奖帖、奖励帖等需要统计参与用户的场景。
+
+### 功能
+
+- 使用 Playwright 打开浏览器手动登录，并保存登录态。
+- 支持抓取单页帖子，也支持自动抓取全帖分页。
+- 从楼层信息中提取论坛用户名。
+- 按用户名去重，重复回复只保留首次出现。
+- 默认不排除任何用户名。
+- 可通过 `--exclude-name` 手动排除指定用户名。
+- 导出 `txt`、`csv`、`json` 三种结果。
+- `txt` 只输出用户名，方便直接用于论坛发币。
+- `csv/json` 保留 UID、用户名、楼层、pid、发帖时间、页码，方便核对。
+- 如果 URL 缺少 `sf` 参数，会尝试从当前目录保存过的离线 HTML 自动补全。
+
+### 安装和运行
+
+推荐使用 `uv`，脚本头部已经声明了 Playwright 依赖：
+
+```bat
+uv run KFID_Scraper.py -h
+```
+
+如果不用 `uv`，可以手动安装：
+
+```bat
+python -m pip install playwright
+python -m playwright install chromium
+```
+
+### 登录论坛
+
+第一次抓在线帖子前，先保存登录态：
+
+```bat
+uv run KFID_Scraper.py login
+```
+
+脚本会优先尝试 Edge，然后 Chrome，最后才尝试 Playwright 自带 Chromium。浏览器打开后，在浏览器里登录论坛；确认已经登录后，回到终端按 Enter。
+
+成功后会生成：
+
+```text
+forum_auth_state.json
+```
+
+这个文件保存了登录态，不要提交到 GitHub，也不要发给别人。
+
+如果想强制使用 Edge：
+
+```bat
+uv run KFID_Scraper.py login --channel msedge
+```
+
+### 抓取全帖用户名
+
+CMD 里 `&` 会被当成命令分隔符，所以完整 URL 最稳妥的写法是加英文双引号：
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297&sf=742&fpage=0&toread=&page=6" -o forum_names_all
+```
+
+抓完后会生成：
+
+```text
+forum_names_all.txt
+forum_names_all.csv
+forum_names_all.json
+```
+
+其中 `forum_names_all.txt` 是最常用的结果文件，一行一个用户名。
+
+### 只抓单页
+
+```bat
+uv run KFID_Scraper.py fetch-page "https://bbs.kfpromax.com/read.php?tid=1079297&sf=742&fpage=0&toread=&page=6" -o forum_names_page6
+```
+
+### 先测试一页
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297&sf=742&fpage=0&toread=&page=6" -o test_names --max-pages 1 --show
+```
+
+确认浏览器能打开页面、终端能抓到用户名后，再去掉 `--max-pages 1` 抓全帖。
+
+### URL 自动补全
+
+如果你只传了 `tid`：
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297"
+```
+
+脚本会尝试从当前目录的离线 HTML 里找同一个 `tid` 的 `sf` 参数，并自动补全 URL。
+
+也可以手动指定 `sf`：
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297" --sf 742 -o forum_names_all
+```
+
+### 排除指定用户名
+
+默认不排除任何用户名。需要排除时手动传：
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297&sf=742" --exclude-name zuimao6 -o forum_names_all
+```
+
+可以传多个：
+
+```bat
+uv run KFID_Scraper.py fetch-thread "https://bbs.kfpromax.com/read.php?tid=1079297&sf=742" --exclude-name user1 --exclude-name user2 -o forum_names_all
+```
+
+### 本地离线 HTML 解析
+
+不需要登录，直接解析已经保存到本地的 HTML：
+
+```bat
+uv run KFID_Scraper.py parse-html "【HB】利用Ai来翻译Gal_小说_漫画的Ai翻译工具分享（帮项目作者代发）_个人日记 - 绯月ScarletMoon.html" -o forum_names_page6
+```
